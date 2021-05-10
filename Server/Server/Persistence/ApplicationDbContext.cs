@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Server.Entities;
+using Server.Models;
 
-namespace Server.Models
+namespace Server.Persistence
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -17,5 +19,7 @@ namespace Server.Models
             // For example, you can rename the ASP.NET Core Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Post> Posts { get; set; }
     }
 }

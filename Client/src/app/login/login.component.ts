@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 import { AuthService } from '../../core/auth.service';
+import { BlogDto } from '../generated/blogger_pb';
+import { WeatherData } from '../generated/weather_forecast_pb';
+import { BloggerService } from '../services/blogger.service';
+import { WeatherForecastService } from '../services/weather-forecast.service';
 
 @Component({
   selector: 'app-login',
@@ -10,13 +14,17 @@ import { AuthService } from '../../core/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  response: any;
+  public response!: Observable<BlogDto.AsObject[]> | Observable<WeatherData.AsObject>;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private _bloggerService: BloggerService,
+    private _weatherForecastService: WeatherForecastService
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -25,12 +33,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  getWetherForecast() {
-    this.http.get(`${environment.baseApiUrl}/WeatherForecast/Get`).subscribe({
-      next: (data) => console.log(data),
-      error: (error) => console.log(error),
-    });
+  getWeatherStream(): void {
+    this.response = this._weatherForecastService.getWeatherStream();
   }
+
+  getBlogs(count: number): void {
+    this.response = this._bloggerService.getBlogs(count);
+  }
+
   logOut() {
     this.authService.logout();
   }
@@ -38,9 +48,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       () => {
         this.ngOnInit();
-        this.response = 'Successfully loggedin';
       },
-      (error) => (this.response = error)
     );
   }
 }

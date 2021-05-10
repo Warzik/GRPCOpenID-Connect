@@ -7,6 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "compile": "%HOMEDRIVE%%HOMEPATH%/Programs/Protoc/bin/protoc.exe --plugin=protoc-gen-ts=%CD%/node_modules/.bin/protoc-gen-ts.cmd --js_out=import_style=commonjs,binary:src/app/generated --ts_out=service=grpc-web:src/app/generated -I ../Server/Server/Protos/ ../Server/Server/Protos/*.proto",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -19,6 +20,8 @@
     "@angular/platform-browser": "~11.2.7",
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
+    "@improbable-eng/grpc-web": "^0.14.0",
+    "google-protobuf": "^3.16.0",
     "jwt-decode": "^3.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
@@ -28,6 +31,7 @@
     "@angular-devkit/build-angular": "~0.1102.6",
     "@angular/cli": "~11.2.6",
     "@angular/compiler-cli": "~11.2.7",
+    "@types/google-protobuf": "^3.15.2",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
@@ -40,6 +44,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
+    "ts-protoc-gen": "^0.15.0",
     "tslint": "~6.1.0",
     "typescript": "~4.1.5"
   }

@@ -4,26 +4,21 @@
 
   <div>Password: <input formControlName="password" /></div>
 
-  <button
-    md-raised-button
-    color="primary"
-    type="submit"
-    [disabled]="!loginForm.valid"
-  >
+  <button md-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
     Submit
   </button>
   <button md-raised-button color="primary" type="button" (click)="logOut()">
     log out
   </button>
-  <button
-    md-raised-button
-    color="primary"
-    type="button"
-    (click)="getWetherForecast()"
-  >
-    Call secure api
+  <br />
+  <br />
+  <button md-raised-button color="primary" type="button" (click)="getWeatherStream()">
+    Call not secure grpc stream api
+  </button>
+  <button md-raised-button color="primary" type="button" (click)="getBlogs(10)">
+    Call secure grpc api
   </button>
 </form>
 
 Response: <br />
-<code><pre>{{response | json}}</pre></code>
+<code><pre>{{response | async | json}}</pre></code>

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using OpenIddict.Abstractions;
 using Server.Models;
+using Server.Persistence;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
